@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS PERSONALIZADO-->
+    <link rel="stylesheet" href='{% static "css/inicio.css"%}'>
+    <link rel="stylesheet" href="{% static 'css/index.css'%}">
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!--ICONOS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">  
+    <!--BOXI-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--DATATABLE-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <title>Inventario</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxl-django'></i>
+            <div class="logo_name">Bienvenido</div>
+            <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a href="http://127.0.0.1:8000/Catalogo">
+                <i class="bi bi-card-checklist"></i>
+              <span class="links_name ms-3">Cuentas</span>
+            </a>
+             <span class="tooltip">Catalogo de Cuentas</span>
+          </li>
+          <li>
+           <a href="http://127.0.0.1:8000/CrearPartida/">
+                <i class="bi bi-cash-coin"></i>
+             <span class="links_name ms-3">Transaccion</span>
+           </a>
+           <span class="tooltip">Gestionar Transaccion</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Estados">
+                <i class="bi bi-currency-dollar"></i>
+             <span class="links_name ms-3">Estados Financieros</span>
+           </a>
+           <span class="tooltip">Estados Financieros</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Inventario">
+            <i class="bi bi-clipboard2-check"></i>
+             <span class="links_name ms-3">Inventario</span>
+           </a>
+           <span class="tooltip">Control de Inventario</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Libro">
+            <i class="bi bi-bank"></i>
+             <span class="links_name ms-3">Libro Mayor</span>
+           </a>
+           <span class="tooltip">Libro Mayor</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Informacion">
+            <i class="bi bi-info-circle-fill"></i>
+             <span class="links_name ms-3">Informacion</span>
+           </a>
+           <span class="tooltip">Desarrolladores</span>
+         </li>
+         <li class="profile">
+             <div class="profile-details">
+               <img src='{% static "images/user.png"%}' alt="profileImg">
+               {%for u in usuario%}
+               <div class="name_job">
+                 <div class="name">{{u.usuario}}</div>
+                 <div class="job">{{u.nombre_usuario}}</div>
+               </div>
+             </div>
+             {%endfor%}
+             <div>
+              <a href="http://127.0.0.1:8000/">
+                <i class='bx bx-log-out' id="log_out"></i>
+              </a>
+            </div>
+         </li>
+        </ul>
+      </div>
+
+
+
+       
+
+    <section class="home-section">
+      <header>
+        <p class="fs-3 text-center">Gestion de Inventario</p>
+      </header>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dialogo1">
+             Compra
+            </button>              
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#dialogo2">
+             Venta
+            </button>              
+          </div>
+        </div>
+      </div>
+
+      <!--Tabla-->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-reponsive mt-2">
+              <table id="datatable-productos" class="table table-light table-striped">
+                <caption>Productos</caption>
+                <thead>
+                  <tr>
+                    <th class="centered">Codigo</th>
+                    <th class="centered">Producto</th>
+                    <th class="centered">Precio Unitario</th>
+                    <th class="centered">Cantidad</th>
+                    <th class="centered">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody_productos"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Compra-->
+      <div class="modal fade" id="dialogo1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Agregar Compra</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/registrarCompra/" method="post">{% csrf_token %}
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Codigo Producto</span>
+                  <input type="number" class="form-control" aria-label="Codigo" name="txtCodigo" id="txtCodigo" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Nombre Producto</span>
+                  <input type="text" class="form-control" aria-label="Producto" name="txtProducto" id="txtProducto" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Proveedor</span>
+                  <input type="text" class="form-control" aria-label="Proveedor" name="txtProveedor" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Precio</span>
+                  <input type="number" class="form-control" aria-label="Precio" name="numPrecio" aria-describedby="basic-addon1" step="0.01">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Cantidad</span>
+                  <input type="number" class="form-control" aria-label="Cantidad" name="numCantidad" aria-describedby="basic-addon1">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  <input type="submit" class="btn btn-success" value="Guardar Registro"></input>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--VENTA-->
+      <div class="modal fade" id="dialogo2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Agregar Venta</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/registrarVenta/" method="post">{% csrf_token %}
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Codigo Producto</span>
+                  <input type="text" class="form-control" name="txtCodigo" aria-label="Codigo" aria-describedby="basic-addon1" id="txtCodigoVenta">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Producto</span>
+                  <input type="text" class="form-control" name="txtProducto" disabled aria-label="Producto" aria-describedby="basic-addon1" id="txtProductoVenta">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Cantidad Vendida</span>
+                  <input type="number" class="form-control" name="numCantidad" aria-label="Cantidad" aria-describedby="basic-addon1">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-success">Guardar Registro</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+    
+
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", ()=>{
+          sidebar.classList.toggle("open");
+          menuBtnChange();
+        });
+        function menuBtnChange() {
+         if(sidebar.classList.contains("open")){
+           closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+         }else {
+           closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+         }
+        }
+        </script>
+    
+    <!--JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+     <!--Jquery-->
+     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+     <!--DataTable.js-->
+     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{% static 'js/productos.js/'%}"></script>
+    <!--Logico-->
+    <script src="{% static 'js/inventarioCompra.js/'%}"></script>
+    <script src="{% static 'js/inventarioVenta.js/'%}"></script>
+</body>
+</html>
+

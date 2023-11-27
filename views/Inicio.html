@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS PERSONALIZADO-->
+    <link rel="stylesheet" href='{% static "css/inicio.css"%}'>
+    <link rel="stylesheet" href='{% static "css/home.css"%}'>
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!--ICONOS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">  
+    <!--BOXI-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Administracion</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxl-django'></i>
+            <div class="logo_name">Bienvenido</div>
+            <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a href="http://127.0.0.1:8000/Catalogo">
+                <i class="bi bi-card-checklist"></i>
+              <span class="links_name ms-3">Cuentas</span>
+            </a>
+             <span class="tooltip">Catalogo de Cuentas</span>
+          </li>
+          <li>
+           <a href="http://127.0.0.1:8000/CrearPartida/">
+                <i class="bi bi-cash-coin"></i>
+             <span class="links_name ms-3">Transaccion</span>
+           </a>
+           <span class="tooltip">Gestionar Transaccion</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Estados">
+                <i class="bi bi-currency-dollar"></i>
+             <span class="links_name ms-3">Estados Financieros</span>
+           </a>
+           <span class="tooltip">Estados Financieros</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Inventario">
+            <i class="bi bi-clipboard2-check"></i>
+             <span class="links_name ms-3">Inventario</span>
+           </a>
+           <span class="tooltip">Control de Inventario</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Libro">
+            <i class="bi bi-bank"></i>
+             <span class="links_name ms-3">Libro Mayor</span>
+           </a>
+           <span class="tooltip">Libro Mayor</span>
+         </li>
+         <li>
+           <a href="http://127.0.0.1:8000/Informacion">
+            <i class="bi bi-info-circle-fill"></i>
+             <span class="links_name ms-3">Informacion</span>
+           </a>
+           <span class="tooltip">Desarrolladores</span>
+         </li>
+         <li class="profile">
+             <div class="profile-details">
+               <img src='{% static "images/user.png"%}' alt="profileImg">
+               {%for u in usuario%}
+               <div class="name_job">
+                 <div class="name">{{u.usuario}}</div>
+                 <div class="job">{{u.nombre_usuario}}</div>
+               </div>
+             </div>
+             {%endfor%}
+             <div>
+               <a href="http://127.0.0.1:8000/">
+                 <i class='bx bx-log-out' id="log_out"></i>
+               </a>
+             </div>
+         </li>
+        </ul>
+      </div>
+
+
+
+       
+
+    <section class="home-section">
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Bienvenido al Sistema Contable</h1>
+                        {% for u in usuario %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="card-text text-center text-black fw-bolder">Usuario: {{u.nombre_usuario}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </section>
+    
+
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", ()=>{
+          sidebar.classList.toggle("open");
+          menuBtnChange();
+        });
+        function menuBtnChange() {
+         if(sidebar.classList.contains("open")){
+           closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+         }else {
+           closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
+         }
+        }
+        </script>
+    
+    <!--JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+

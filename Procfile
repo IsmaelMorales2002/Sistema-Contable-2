@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn Sistema_Contable.wsgi --log-file -
