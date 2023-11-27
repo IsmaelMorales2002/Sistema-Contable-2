@@ -22,6 +22,8 @@ from Aplicaciones.Transaccion.views import *
 from Aplicaciones.Producto.views import *
 from Aplicaciones.Estados_Financieros.views import *
 from Aplicaciones.Partida.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,4 +48,4 @@ urlpatterns = [
     path('listadoProductos/',list_productos),
     path('listadoTransacciones/',list_transacciones),
     path('utilidad/',guardar_saldoUtilidad)
-]
+] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
