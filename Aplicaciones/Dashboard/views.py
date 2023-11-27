@@ -19,7 +19,7 @@ def User():
 
 
 def Login(request):
-    return render(request,"login.html")
+    return render(request,"Login.html")
 
 def Informacion(request):
     return render(request,'Informacion.html',{
