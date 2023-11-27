@@ -92,11 +92,11 @@ DATABASES = {
         'OPTIONS' :{
             'sql_mode': 'traditional',
         },
-        'NAME': 'sistema_contable',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'PASSWORD': '-1-gd1eF5gGb4EGgFBgGA4e6c3Faa64F',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '39103'
     }
 }
 
