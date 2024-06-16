@@ -94,9 +94,9 @@ DATABASES = {
         },
         'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '-1-gd1eF5gGb4EGgFBgGA4e6c3Faa64F',
+        'PASSWORD': 'FXStFPeotCzTUgQxAAmVOmAvdopVNVLN',
         'HOST': 'monorail.proxy.rlwy.net',
-        'PORT': '39103'
+        'PORT': '30875'
     }
 }
 
